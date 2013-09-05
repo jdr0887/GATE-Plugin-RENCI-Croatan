@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="GATE">
+  <bannerLeft>
+    <name>GATE</name>
+    <src></src>
+  </bannerLeft>
+  <bannerRight>
+    <name>${project.artifactId}</name>
+    <src></src>
+  </bannerRight>
+  <body>
+    <links>
+      <item name="gForge" href="https://code.renci.org/gf/project/"/>
+      <item name="Hudson" href="https://ci-dev.renci.org/hudson"/>
+    </links>
+    <menu ref="parent"/>
+    <menu name="Documentation" >
+      <item name="Introduction" href="index.html"/>
+      <item name="How to Use" href="usage.html" />
+    </menu>
+    <menu ref="reports"/>
+  </body>
+</project>

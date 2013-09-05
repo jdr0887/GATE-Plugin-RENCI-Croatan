@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0" default-activation="lazy">
+
+  <cm:property-placeholder persistent-id="org.renci.gate.plugin.croatan" update-strategy="reload">
+    <cm:default-properties>
+      <cm:property name="maxTotalPending" value="4" />
+      <cm:property name="maxTotalRunning" value="20" />
+      <cm:property name="submitHost" value="ht0.renci.org" />
+      <cm:property name="collectorHost" value="biodev2.its.unc.edu" />
+      <cm:property name="activeQueues" value="serial" />
+      <cm:property name="username" value="" />
+    </cm:default-properties>
+  </cm:property-placeholder>
+
+  <bean id="batchQueue" class="org.renci.jlrm.Queue">
+    <property name="name" value="batch" />
+    <property name="weight" value="1" />
+    <property name="maxJobLimit" value="20" />
+    <property name="maxMultipleJobsToSubmit" value="2" />
+    <property name="pendingTime" value="1440" />
+    <property name="runTime" value="5760" />
+  </bean>
+
+  <bean id="site" class="org.renci.jlrm.Site">
+    <property name="name" value="Croatan" />
+    <property name="project" value="RENCI" />
+    <property name="numberOfProcessors" value="16" />
+    <property name="username" value="${username}" />
+    <property name="submitHost" value="${submitHost}" />
+    <property name="maxTotalPending" value="${maxTotalPending}" />
+    <property name="maxTotalRunning" value="${maxTotalRunning}" />
+    <property name="queueList">
+      <list>
+        <ref component-id="batchQueue" />
+      </list>
+    </property>
+  </bean>
+
+  <bean id="croatanGATEService" class="org.renci.gate.plugin.croatan.CroatanGATEService">
+    <property name="site" ref="site" />
+    <property name="collectorHost" value="${collectorHost}" />
+    <property name="activeQueues" value="${activeQueues}" />
+    <cm:managed-properties persistent-id="org.renci.gate.plugin.croatan" update-strategy="container-managed" />
+  </bean>
+
+  <service ref="croatanGATEService" interface="org.renci.gate.GATEService" />
+
+</blueprint>

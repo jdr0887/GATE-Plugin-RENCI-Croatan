@@ -1,0 +1,19 @@
+<document>
+  <properties>
+    
+  </properties>
+  <body>
+    <section name="How To Use">
+      <p>In order to use this project you will need to you will need to
+      specify the following in your pom.xml file:</p>
+      <source>
+	<![CDATA[
+ <dependency>
+	 <groupId>${groupId}</groupId>
+	 <artifactId>${artifactId}</artifactId>
+	 <version>${version}</version>
+ </dependency>]]>
+      </source>
+    </section>
+  </body>
+</document>
