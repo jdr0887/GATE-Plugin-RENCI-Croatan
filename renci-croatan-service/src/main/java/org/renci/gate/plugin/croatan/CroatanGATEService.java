@@ -15,11 +15,11 @@ import org.renci.gate.GlideinMetric;
 import org.renci.jlrm.JLRMException;
 import org.renci.jlrm.Queue;
 import org.renci.jlrm.commons.ssh.SSHConnectionUtil;
-import org.renci.jlrm.slurm.SLURMJobStatusInfo;
-import org.renci.jlrm.slurm.SLURMJobStatusType;
-import org.renci.jlrm.slurm.ssh.SLURMSSHKillCallable;
-import org.renci.jlrm.slurm.ssh.SLURMSSHLookupStatusCallable;
-import org.renci.jlrm.slurm.ssh.SLURMSSHSubmitCondorGlideinCallable;
+import org.renci.jlrm.pbs.PBSJobStatusInfo;
+import org.renci.jlrm.pbs.PBSJobStatusType;
+import org.renci.jlrm.pbs.ssh.PBSSSHKillCallable;
+import org.renci.jlrm.pbs.ssh.PBSSSHLookupStatusCallable;
+import org.renci.jlrm.pbs.ssh.PBSSSHSubmitCondorGlideinCallable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,27 +61,29 @@ public class CroatanGATEService extends AbstractGATEService {
         }
 
         try {
-            SLURMSSHLookupStatusCallable callable = new SLURMSSHLookupStatusCallable(getSite());
-            Set<SLURMJobStatusInfo> jobStatusSet = Executors.newSingleThreadExecutor().submit(callable).get();
+            PBSSSHLookupStatusCallable callable = new PBSSSHLookupStatusCallable(getSite());
+            Set<PBSJobStatusInfo> jobStatusSet = Executors.newSingleThreadExecutor().submit(callable).get();
             logger.debug("jobStatusSet.size(): {}", jobStatusSet.size());
 
             if (jobStatusSet != null && jobStatusSet.size() > 0) {
 
-                for (SLURMJobStatusInfo info : jobStatusSet) {
+                for (PBSJobStatusInfo info : jobStatusSet) {
 
                     if (!"glidein".equals(info.getJobName())) {
                         continue;
                     }
 
                     switch (info.getType()) {
-                        case PENDING:
+                        case QUEUED:
                             metricsMap.get(info.getQueue()).incrementPending();
                             break;
                         case RUNNING:
                             metricsMap.get(info.getQueue()).incrementRunning();
                             break;
                     }
+
                 }
+
             }
 
         } catch (Exception e) {
@@ -110,7 +112,7 @@ public class CroatanGATEService extends AbstractGATEService {
             logger.info("siteInfo: {}", getSite());
             logger.info("queueInfo: {}", queue);
             String hostAllow = "*.unc.edu";
-            SLURMSSHSubmitCondorGlideinCallable callable = new SLURMSSHSubmitCondorGlideinCallable();
+            PBSSSHSubmitCondorGlideinCallable callable = new PBSSSHSubmitCondorGlideinCallable();
             callable.setCollectorHost(getCollectorHost());
             callable.setUsername(System.getProperty("user.name"));
             callable.setSite(getSite());
@@ -132,12 +134,11 @@ public class CroatanGATEService extends AbstractGATEService {
         try {
             logger.info("siteInfo: {}", getSite());
             logger.info("queueInfo: {}", queue);
-            SLURMSSHLookupStatusCallable lookupStatusCallable = new SLURMSSHLookupStatusCallable(getSite());
-            Set<SLURMJobStatusInfo> jobStatusSet = Executors.newSingleThreadExecutor().submit(lookupStatusCallable)
-                    .get();
-            SLURMSSHKillCallable callable = new SLURMSSHKillCallable(getSite(), jobStatusSet.iterator().next()
+            PBSSSHLookupStatusCallable lookupStatusCallable = new PBSSSHLookupStatusCallable(getSite());
+            Set<PBSJobStatusInfo> jobStatusSet = Executors.newSingleThreadExecutor().submit(lookupStatusCallable).get();
+            PBSSSHKillCallable killCallable = new PBSSSHKillCallable(getSite(), jobStatusSet.iterator().next()
                     .getJobId());
-            Executors.newSingleThreadExecutor().submit(callable).get();
+            Executors.newSingleThreadExecutor().submit(killCallable).get();
         } catch (Exception e) {
             throw new GATEException(e);
         }
@@ -147,12 +148,11 @@ public class CroatanGATEService extends AbstractGATEService {
     public void deletePendingGlideins() throws GATEException {
         logger.info("ENTERING deletePendingGlideins()");
         try {
-            SLURMSSHLookupStatusCallable lookupStatusCallable = new SLURMSSHLookupStatusCallable(getSite());
-            Set<SLURMJobStatusInfo> jobStatusSet = Executors.newSingleThreadExecutor().submit(lookupStatusCallable)
-                    .get();
-            for (SLURMJobStatusInfo info : jobStatusSet) {
-                if (info.getType().equals(SLURMJobStatusType.PENDING)) {
-                    SLURMSSHKillCallable killCallable = new SLURMSSHKillCallable(getSite(), info.getJobId());
+            PBSSSHLookupStatusCallable lookupStatusCallable = new PBSSSHLookupStatusCallable(getSite());
+            Set<PBSJobStatusInfo> jobStatusSet = Executors.newSingleThreadExecutor().submit(lookupStatusCallable).get();
+            for (PBSJobStatusInfo info : jobStatusSet) {
+                if (info.getType().equals(PBSJobStatusType.QUEUED)) {
+                    PBSSSHKillCallable killCallable = new PBSSSHKillCallable(getSite(), info.getJobId());
                     Executors.newSingleThreadExecutor().submit(killCallable).get();
                 }
                 // throttle the deleteGlidein calls such that SSH doesn't complain
