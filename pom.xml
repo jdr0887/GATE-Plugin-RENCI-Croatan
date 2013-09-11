@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.renci.gate</groupId>
     <artifactId>gate</artifactId>
-    <version>0.0.19</version>    
+    <version>0.0.20</version>    
   </parent>
   <name>GATE :: Plugins :: RENCI :: Croatan</name>
   <modelVersion>4.0.0</modelVersion>
