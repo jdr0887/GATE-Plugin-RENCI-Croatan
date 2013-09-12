@@ -4,8 +4,8 @@
 
   <cm:property-placeholder persistent-id="org.renci.gate.plugin.croatan" update-strategy="reload">
     <cm:default-properties>
-      <cm:property name="maxTotalPending" value="4" />
-      <cm:property name="maxTotalRunning" value="20" />
+      <cm:property name="maxPending" value="4" />
+      <cm:property name="maxRunning" value="20" />
       <cm:property name="submitHost" value="ht0.renci.org" />
       <cm:property name="collectorHost" value="biodev2.its.unc.edu" />
       <cm:property name="activeQueues" value="serial" />
@@ -16,10 +16,10 @@
   <bean id="batchQueue" class="org.renci.jlrm.Queue">
     <property name="name" value="batch" />
     <property name="weight" value="1" />
-    <property name="maxJobLimit" value="20" />
-    <property name="maxMultipleJobsToSubmit" value="2" />
-    <property name="pendingTime" value="1440" />
+    <property name="maxPending" value="${maxPending}" />
+    <property name="maxRunning" value="${maxRunning}" />
     <property name="runTime" value="5760" />
+    <property name="numberOfProcessors" value="16" />
   </bean>
 
   <bean id="site" class="org.renci.jlrm.Site">
@@ -28,8 +28,6 @@
     <property name="numberOfProcessors" value="16" />
     <property name="username" value="${username}" />
     <property name="submitHost" value="${submitHost}" />
-    <property name="maxTotalPending" value="${maxTotalPending}" />
-    <property name="maxTotalRunning" value="${maxTotalRunning}" />
     <property name="queueList">
       <list>
         <ref component-id="batchQueue" />
