@@ -11,7 +11,7 @@
   <version>0.2.3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
-    <renci.gate.version>0.2.2</renci.gate.version>
+    <renci.gate.version>0.2.3</renci.gate.version>
   </properties>
   <issueManagement>
     <system>gForge</system>
