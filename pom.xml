@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.renci.gate.plugins.renci</groupId>
   <artifactId>croatan</artifactId>
-  <version>0.2.3</version>
+  <version>0.2.4-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
     <renci.gate.version>0.2.3</renci.gate.version>
@@ -41,7 +41,7 @@
   <scm>
     <developerConnection>scm:git:ssh://${user.name}@code.renci.org/gitroot/g_p_r_croatan</developerConnection>
     <connection>scm:git:ssh://developername@code.renci.org/gitroot/g_p_r_croatan</connection>
-    <tag>croatan-0.2.3</tag>
+    <tag>HEAD</tag>
   </scm>
   <dependencyManagement>
     <dependencies>
