@@ -44,8 +44,8 @@
 	<version>${maven.bundle.plugin.version}</version>
 	<configuration>
 	  <instructions>
-            <Import-Package>*</Import-Package>
-            <Private-Package>org.renci.gate.commands.croatan.*</Private-Package>
+            <Export-Package>org.renci.gate.commands.croatan.*</Export-Package>
+            <Import-Package>org.apache.felix.service.command,org.apache.felix.gogo.commands,org.apache.karaf.shell.console,*</Import-Package>
 	  </instructions>
 	</configuration>
       </plugin>
