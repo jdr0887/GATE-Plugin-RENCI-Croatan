@@ -11,7 +11,7 @@
   <version>0.2.8-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
-    <karaf.version>2.3.3</karaf.version>
+    <karaf.version>2.3.2</karaf.version>
     <renci.gate.version>0.2.6</renci.gate.version>
   </properties>
   <issueManagement>
