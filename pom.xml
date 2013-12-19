@@ -11,6 +11,7 @@
   <version>0.2.7-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
+    <karaf.version>2.3.3</karaf.version>
     <renci.gate.version>0.2.6</renci.gate.version>
   </properties>
   <issueManagement>
@@ -50,9 +51,25 @@
 	<artifactId>gate-api</artifactId>
 	<version>${renci.gate.version}</version>
       </dependency>
+      <dependency>
+      	<groupId>org.apache.felix</groupId>
+      	<artifactId>org.apache.felix.gogo.runtime</artifactId>
+      	<version>0.10.0</version>
+      </dependency>
+      <dependency>
+      	<groupId>org.apache.karaf</groupId>
+      	<artifactId>org.apache.karaf.util</artifactId>
+      	<version>${karaf.version}</version>
+      </dependency>
+      <dependency>
+      	<groupId>org.apache.karaf.shell</groupId>
+      	<artifactId>org.apache.karaf.shell.console</artifactId>
+      	<version>${karaf.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <modules>
+    <module>renci-croatan-commands</module>
     <module>renci-croatan-service</module>
     <module>renci-croatan-features</module>
   </modules>
