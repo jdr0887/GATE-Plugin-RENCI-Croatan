@@ -11,8 +11,8 @@
   <version>0.2.9-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
-    <karaf.version>2.3.2</karaf.version>
-    <renci.gate.version>0.2.6</renci.gate.version>
+    <karaf.version>2.3.3</karaf.version>
+    <renci.gate.version>0.2.7</renci.gate.version>
   </properties>
   <issueManagement>
     <system>gForge</system>
