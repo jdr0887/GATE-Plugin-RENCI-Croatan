@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.renci.gate</groupId>
     <artifactId>gate</artifactId>
-    <version>0.0.21</version>    
+    <version>0.0.23</version>    
   </parent>
   <name>GATE :: Plugins :: RENCI :: Croatan</name>
   <modelVersion>4.0.0</modelVersion>
@@ -12,7 +12,7 @@
   <packaging>pom</packaging>
   <properties>
     <karaf.version>2.3.3</karaf.version>
-    <renci.gate.version>0.2.7</renci.gate.version>
+    <renci.gate.version>0.2.8</renci.gate.version>
   </properties>
   <issueManagement>
     <system>gForge</system>
