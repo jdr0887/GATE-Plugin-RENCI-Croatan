@@ -12,7 +12,7 @@
   <packaging>pom</packaging>
   <properties>
     <karaf.version>2.3.5</karaf.version>
-    <renci.gate.version>0.2.8</renci.gate.version>
+    <renci.gate.version>0.2.9</renci.gate.version>
   </properties>
   <issueManagement>
     <system>gForge</system>
