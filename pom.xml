@@ -15,8 +15,8 @@
     <renci.gate.version>0.2.11</renci.gate.version>
   </properties>
   <issueManagement>
-    <system>gForge</system>
-    <url>https://code.renci.org/gf/project/g_p_r_h/tracker/</url>
+    <system>GitHub Issues</system>
+    <url>https://github.com/jdr0887/GATE-Plugin-RENCI-Croatan/issues</url>
   </issueManagement>
   <ciManagement>
     <system>hudson</system>
