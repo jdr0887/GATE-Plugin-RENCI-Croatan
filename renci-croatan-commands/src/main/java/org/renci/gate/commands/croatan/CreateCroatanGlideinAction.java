@@ -53,7 +53,7 @@ public class CreateCroatanGlideinAction extends AbstractAction {
             callable.setHostAllowWrite("*.unc.edu");
             callable.setRequiredMemory(40);
             callable.setUsername(System.getProperty("user.name"));
-            callable.setJobName("glidein");
+            callable.setJobName(String.format("glidein-%s", site.getName().toLowerCase()));
 
             PBSSSHJob job = callable.call();
             System.out.println(job.getId());
