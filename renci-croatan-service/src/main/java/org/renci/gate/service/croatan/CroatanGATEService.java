@@ -67,10 +67,11 @@ public class CroatanGATEService extends AbstractGATEService {
             logger.debug("jobStatusSet.size(): {}", jobStatusSet.size());
 
             if (jobStatusSet != null && jobStatusSet.size() > 0) {
+                String jobName = String.format("glidein-%s", getSite().getName().toLowerCase());
 
                 for (PBSJobStatusInfo info : jobStatusSet) {
 
-                    if (!info.getJobName().contains("glidein")) {
+                    if (!info.getJobName().equals(jobName)) {
                         continue;
                     }
 
@@ -133,9 +134,9 @@ public class CroatanGATEService extends AbstractGATEService {
             PBSSSHLookupStatusCallable lookupStatusCallable = new PBSSSHLookupStatusCallable(getSite());
             Set<PBSJobStatusInfo> jobStatusSet = Executors.newSingleThreadExecutor().submit(lookupStatusCallable).get();
             Iterator<PBSJobStatusInfo> iter = jobStatusSet.iterator();
+            String jobName = String.format("glidein-%s", getSite().getName().toLowerCase());
             while (iter.hasNext()) {
                 PBSJobStatusInfo info = iter.next();
-                String jobName = String.format("glidein-%s", getSite().getName().toLowerCase());
                 if (!info.getJobName().equals(jobName)) {
                     continue;
                 }
@@ -156,8 +157,8 @@ public class CroatanGATEService extends AbstractGATEService {
         try {
             PBSSSHLookupStatusCallable lookupStatusCallable = new PBSSSHLookupStatusCallable(getSite());
             Set<PBSJobStatusInfo> jobStatusSet = Executors.newSingleThreadExecutor().submit(lookupStatusCallable).get();
+            String jobName = String.format("glidein-%s", getSite().getName().toLowerCase());
             for (PBSJobStatusInfo info : jobStatusSet) {
-                String jobName = String.format("glidein-%s", getSite().getName().toLowerCase());
                 if (!info.getJobName().equals(jobName)) {
                     continue;
                 }
