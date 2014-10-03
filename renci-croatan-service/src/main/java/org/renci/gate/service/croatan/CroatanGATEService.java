@@ -70,7 +70,7 @@ public class CroatanGATEService extends AbstractGATEService {
 
                 for (PBSJobStatusInfo info : jobStatusSet) {
 
-                    if (!"glidein".equals(info.getJobName())) {
+                    if (!info.getJobName().contains("glidein")) {
                         continue;
                     }
 
@@ -112,7 +112,7 @@ public class CroatanGATEService extends AbstractGATEService {
             callable.setCollectorHost(getCollectorHost());
             callable.setUsername(System.getProperty("user.name"));
             callable.setSite(getSite());
-            callable.setJobName("glidein");
+            callable.setJobName(String.format("glidein-%s", getSite().getName().toLowerCase()));
             callable.setQueue(queue);
             callable.setSubmitDir(submitDir);
             callable.setRequiredMemory(40);
@@ -135,7 +135,8 @@ public class CroatanGATEService extends AbstractGATEService {
             Iterator<PBSJobStatusInfo> iter = jobStatusSet.iterator();
             while (iter.hasNext()) {
                 PBSJobStatusInfo info = iter.next();
-                if (!info.getJobName().equals("glidein")) {
+                String jobName = String.format("glidein-%s", getSite().getName().toLowerCase());
+                if (!info.getJobName().equals(jobName)) {
                     continue;
                 }
                 logger.debug("deleting: {}", info.toString());
@@ -156,7 +157,8 @@ public class CroatanGATEService extends AbstractGATEService {
             PBSSSHLookupStatusCallable lookupStatusCallable = new PBSSSHLookupStatusCallable(getSite());
             Set<PBSJobStatusInfo> jobStatusSet = Executors.newSingleThreadExecutor().submit(lookupStatusCallable).get();
             for (PBSJobStatusInfo info : jobStatusSet) {
-                if (!info.getJobName().equals("glidein")) {
+                String jobName = String.format("glidein-%s", getSite().getName().toLowerCase());
+                if (!info.getJobName().equals(jobName)) {
                     continue;
                 }
                 if (info.getType().equals(PBSJobStatusType.QUEUED)) {
