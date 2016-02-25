@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [ ! -e "$HOME/.jlrmrc" ]; then
+cat > $HOME/.jlrmrc <<EOF
+#!/bin/bash
+export JLRM_HOME=\$HOME/.jlrm
+export ARCH=\`uname -m\`
+export KERNEL_NAME=\`uname -s\`
+EOF
+fi
+
+. $HOME/.bashrc
+. $HOME/.jlrmrc                                 
+
+# this will contain logs/execute/spool
+UUID=`/usr/bin/uuidgen`
+HOSTNAME=`/bin/hostname -s`
+CURRENT_DATE=`date +%Y-%m-%d`
+LOCAL_DIR=$JLRM_HOME/glideins/$CURRENT_DATE/$UUID
+
+echo "LOCAL_DIR = $LOCAL_DIR"
+echo "HOSTNAME = $HOSTNAME"
+
+mkdir -p $LOCAL_DIR/execute
+mkdir -p $LOCAL_DIR/log
+mkdir -p $LOCAL_DIR/spool
+
+# create an env file for easy sourcing
+cat > $LOCAL_DIR/env.sh <<EOF
+#!/bin/bash
+export PATH=$CONDOR_HOME/bin:$CONDOR_HOME/sbin:$PATH
+export CONDOR_CONFIG=$LOCAL_DIR/condor_config
+EOF
+
+. $LOCAL_DIR/env.sh
+
+# fix the condor config file
+cp ${remoteWorkDir}/condor_config ${remoteWorkDir}/condor_config.local $LOCAL_DIR/ 
+perl -p -i -e "s:^RELEASE_DIR.*:RELEASE_DIR = $CONDOR_HOME:" $LOCAL_DIR/condor_config
+perl -p -i -e "s:^LOCAL_DIR( |\t).*:LOCAL_DIR = $LOCAL_DIR:" $LOCAL_DIR/condor_config
+
+condor_master -f -r ${maxRunTime}
+
+#-f: Causes the daemon to start up in the foreground. Instead of forking, the daemon runs in the foreground.
+#-r MINUTES: Causes the daemon to set a timer, upon expiration of which, it sends itself a SIGTERM for graceful shutdown.
