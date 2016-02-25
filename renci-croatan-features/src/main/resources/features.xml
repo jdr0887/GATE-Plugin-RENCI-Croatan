@@ -1,7 +1,6 @@
 <features name="gate-plugin-renci-croatan-${project.version}">
 
   <feature name="gate-plugin-renci-croatan" version="${project.version}" resolver="(obr)">
-    <bundle>mvn:org.renci.gate.plugins.renci.croatan/renci-croatan-commands/${project.version}</bundle>
     <bundle>mvn:org.renci.gate.plugins.renci.croatan/renci-croatan-service/${project.version}</bundle>
   </feature>
 
