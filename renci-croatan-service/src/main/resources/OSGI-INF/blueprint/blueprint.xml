@@ -10,6 +10,7 @@
       <cm:property name="collectorHost" value="biodev2.its.unc.edu" />
       <cm:property name="activeQueues" value="serial" />
       <cm:property name="username" value="" />
+      <cm:property name="hostAllow" value="*.unc.edu" />
     </cm:default-properties>
   </cm:property-placeholder>
 
@@ -38,6 +39,7 @@
     <property name="site" ref="site" />
     <property name="collectorHost" value="${collectorHost}" />
     <property name="activeQueues" value="${activeQueues}" />
+    <property name="hostAllow" value="${hostAllow}" />
     <cm:managed-properties persistent-id="org.renci.gate.service.croatan" update-strategy="container-managed" />
   </bean>
 
