@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.renci.gate</groupId>
     <artifactId>gate</artifactId>
-    <version>0.1.3-SNAPSHOT</version>    
+    <version>0.1.3</version>    
   </parent>
   <name>GATE :: Plugins :: RENCI :: Croatan</name>
   <modelVersion>4.0.0</modelVersion>
@@ -11,7 +11,7 @@
   <version>0.2.16-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
-    <renci.gate.version>0.2.14</renci.gate.version>
+    <renci.gate.version>0.2.15</renci.gate.version>
   </properties>
   <issueManagement>
     <system>GitHub Issues</system>
