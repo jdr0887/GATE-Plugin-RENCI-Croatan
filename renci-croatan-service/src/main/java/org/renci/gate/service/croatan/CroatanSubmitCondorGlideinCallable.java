@@ -45,6 +45,8 @@ public class CroatanSubmitCondorGlideinCallable implements Callable<PBSSSHJob> {
 
     private String hostAllowWrite;
 
+    private String jobName;
+
     private String username;
 
     private String numberOfProcessors = "$(DETECTED_CORES)";
@@ -75,6 +77,7 @@ public class CroatanSubmitCondorGlideinCallable implements Callable<PBSSSHJob> {
         job.setQueueName(this.queue.getName());
         job.setName("glidein");
         job.setHostCount(1);
+        job.setName(this.jobName);
         job.setNumberOfProcessors(getQueue().getNumberOfProcessors());
         job.setOutput(new File("glidein.out"));
         job.setError(new File("glidein.err"));
@@ -253,6 +256,14 @@ public class CroatanSubmitCondorGlideinCallable implements Callable<PBSSSHJob> {
 
     public void setNumberOfProcessors(String numberOfProcessors) {
         this.numberOfProcessors = numberOfProcessors;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
 }
