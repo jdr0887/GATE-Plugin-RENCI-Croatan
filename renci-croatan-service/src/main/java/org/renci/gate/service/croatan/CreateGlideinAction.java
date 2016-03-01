@@ -10,7 +10,6 @@ import org.renci.jlrm.JLRMException;
 import org.renci.jlrm.Queue;
 import org.renci.jlrm.Site;
 import org.renci.jlrm.pbs.ssh.PBSSSHJob;
-import org.renci.jlrm.pbs.ssh.PBSSSHSubmitCondorGlideinCallable;
 
 @Command(scope = "renci-croatan", name = "create-glidein", description = "Create Glidein")
 @Service
@@ -28,8 +27,12 @@ public class CreateGlideinAction implements Action {
     @Option(name = "--collectorHost", required = true, multiValued = false)
     private String collectorHost;
 
+    @Option(name = "--hostAllow", required = false, multiValued = false)
+    private String hostAllow;
+
     public CreateGlideinAction() {
         super();
+        this.hostAllow = "*.unc.edu";
     }
 
     @Override
@@ -43,16 +46,16 @@ public class CreateGlideinAction implements Action {
         queue.setName(queueName);
         queue.setRunTime(5760L);
         queue.setNumberOfProcessors(32);
-        
+
         File submitDir = new File("/tmp");
         try {
-            PBSSSHSubmitCondorGlideinCallable callable = new PBSSSHSubmitCondorGlideinCallable();
+            CroatanSubmitCondorGlideinCallable callable = new CroatanSubmitCondorGlideinCallable();
             callable.setSite(site);
             callable.setQueue(queue);
             callable.setSubmitDir(submitDir);
             callable.setCollectorHost(collectorHost);
-            callable.setHostAllowRead("*.unc.edu");
-            callable.setHostAllowWrite("*.unc.edu");
+            callable.setHostAllowRead(hostAllow);
+            callable.setHostAllowWrite(hostAllow);
             callable.setRequiredMemory(40);
             callable.setUsername(System.getProperty("user.name"));
             callable.setJobName(String.format("glidein-%s", site.getName().toLowerCase()));
@@ -96,6 +99,14 @@ public class CreateGlideinAction implements Action {
 
     public void setCollectorHost(String collectorHost) {
         this.collectorHost = collectorHost;
+    }
+
+    public String getHostAllow() {
+        return hostAllow;
+    }
+
+    public void setHostAllow(String hostAllow) {
+        this.hostAllow = hostAllow;
     }
 
 }
