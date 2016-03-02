@@ -2,13 +2,13 @@
   <parent>
     <groupId>org.renci.gate.plugins.renci</groupId>
     <artifactId>croatan</artifactId>
-    <version>0.2.17-SNAPSHOT</version>
+    <version>0.2.17</version>
   </parent>
   <name>GATE :: Plugins :: RENCI :: Croatan :: Features</name>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.renci.gate.plugins.renci.croatan</groupId>
   <artifactId>renci-croatan-features</artifactId>
-  <version>0.2.17-SNAPSHOT</version>
+  <version>0.2.17</version>
   <packaging>pom</packaging>
   <build>
     <plugins>
