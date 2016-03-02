@@ -11,7 +11,7 @@
   <version>0.2.17-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
-    <renci.gate.version>0.2.15</renci.gate.version>
+    <renci.gate.version>0.2.16</renci.gate.version>
   </properties>
   <issueManagement>
     <system>GitHub Issues</system>
