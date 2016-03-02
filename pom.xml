@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.renci.gate.plugins.renci</groupId>
   <artifactId>croatan</artifactId>
-  <version>0.2.18-SNAPSHOT</version>
+  <version>0.2.18</version>
   <packaging>pom</packaging>
   <properties>
     <renci.gate.version>0.2.17</renci.gate.version>
@@ -28,7 +28,7 @@
     <url>https://github.com/jdr0887/GATE-Plugin-RENCI-Croatan</url>
     <developerConnection>scm:git:git@github.com:jdr0887/GATE-Plugin-RENCI-Croatan.git</developerConnection>
     <connection>scm:git:git@github.com:jdr0887/GATE-Plugin-RENCI-Croatan.git</connection>
-    <tag>HEAD</tag>
+    <tag>croatan-0.2.18</tag>
   </scm>
   <dependencyManagement>
     <dependencies>
